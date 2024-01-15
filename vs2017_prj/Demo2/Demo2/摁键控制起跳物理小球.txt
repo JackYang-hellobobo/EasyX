@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#define WIDTH 600
+#define HIGHT 600
+int main(void) {
+	float ball_x, ball_y, ball_Vy, ball_r, gravity = 9.8;
+	initgraph(WIDTH , HIGHT);
+	while (1) {
+		char flag = 'y';
+		ball_Vy = -100, ball_r = 20;
+		ball_x = WIDTH / 2, ball_y = HIGHT - ball_r;
+		fillcircle(ball_x, ball_y, ball_r);
+		char input = _getch();
+		if (input == ' ') {
+			while (flag=='y') {
+				ball_Vy = ball_Vy + gravity;
+				ball_y = ball_y + ball_Vy;
+				if (ball_y > HIGHT) {
+					ball_y = HIGHT-ball_r;
+					flag = 'n';
+				}
+				fillcircle(ball_x, ball_y, ball_r);
+				Sleep(50);
+				cleardevice();
+			}
+		}
+	}
+	_getch();
+	closegraph();
+	return 0;
+}

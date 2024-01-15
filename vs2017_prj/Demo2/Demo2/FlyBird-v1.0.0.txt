@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+#define WIDTH 600
+#define HIGHT 600
+
+int main(void) {
+	initgraph(WIDTH, HIGHT);
+
+	//Ball Init
+	float ball_x, ball_y, ball_Vy, ball_r, gravity = 10;
+	ball_Vy = 0, ball_r = 20;
+	ball_x = WIDTH / 2, ball_y = HIGHT - ball_r;
+
+	//Rectangle Init
+	float rect_left_x, rect_top_y, rect_right_x, rect_bottom_y, rect_Vx;
+	float rect_width, rect_height;
+
+	rect_width = 20;
+	rect_height = 100;
+	//Rectangle 
+	rect_left_x = WIDTH * 3 / 4;
+	rect_right_x = rect_left_x + rect_width;
+
+	rect_top_y = HIGHT - rect_height;
+	rect_bottom_y = rect_top_y + rect_height;
+	//Rectangle Init Speed
+	rect_Vx = -5;
+
+	while (1) {
+		if (_kbhit()) {
+			char input = _getch();
+			if (input == ' ') {
+				ball_Vy = -60;
+			}
+		}
+
+		ball_Vy = ball_Vy + gravity;
+		ball_y = ball_y + ball_Vy;
+
+		if (ball_y >= HIGHT - ball_r) {
+			ball_Vy = 0;
+			ball_y = HIGHT - ball_r;
+		}
+
+		rect_left_x = rect_left_x + rect_Vx;
+		rect_right_x = rect_left_x + rect_width;
+
+		if (rect_left_x < 0) {
+			rect_left_x = WIDTH - rect_width;
+			rect_right_x = rect_left_x + rect_width;
+		}
+		cleardevice();
+		fillcircle(ball_x, ball_y, ball_r);
+		fillrectangle(rect_left_x, rect_top_y, rect_right_x, rect_bottom_y);
+		Sleep(32);
+	}
+	_getch();
+	closegraph();
+	return 0;
+}

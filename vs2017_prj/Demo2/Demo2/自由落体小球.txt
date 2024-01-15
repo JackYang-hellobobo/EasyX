@@ -1,0 +1,42 @@
+#include<graphics.h>
+#include<conio.h>
+#include<stdio.h>
+#include<math.h>
+#define INITWIDTH 600
+#define INITHIGHT 600
+#define HEIGHT 300
+#define WIDTH 300;
+int main()
+{
+	//GUI图形初始化
+	//这个例子以一种很简单的方式来描述物理世界的自由落体运动
+	double g = 9.81;
+	double x = 10, y =100,r=10, Vy = 0,Vx=14;
+	double h = 0;
+	double temp = 30;
+	initgraph(INITWIDTH, INITHIGHT);
+	while (1) {
+		Vy = Vy + g;
+		Vx = 0.98*Vx;
+		x = x + Vx;
+		y = y + Vy;
+		if (x > 580) {
+			Vx = -0.98*Vx;
+		}
+		if (x < 0) {
+			Vx = -0.98*Vx;
+		}
+		if (y >= 580) {
+			Vy = -0.98*Vy;
+		}
+		if (y > 580) {
+			y = 580;
+		}
+		fillcircle(x, y, r);
+		Sleep(temp);
+		cleardevice();
+	}
+	_getch();
+	closegraph();
+	return 0;
+}
